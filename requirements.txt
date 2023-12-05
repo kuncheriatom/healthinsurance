@@ -6,5 +6,5 @@ streamlit_option_menu
 scikit-learn
 matplotlib
 joblib
-urllib
+urllib3
 -e .
