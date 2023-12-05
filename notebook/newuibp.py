@@ -331,41 +331,11 @@ if selected == "Depression Prediction":
     with col4:
         maxvo2_ = st.text_input('Maximum Oxygen Consumption')
         
-    with col5:
-        X_cholchk = st.text_input('Cholesterol Check')
-        
-    with col1:
-        X_frt16 = st.text_input('Fruit Consumption 16 or More Times/Day')
         
     with col2:
         X_impnph = st.text_input('Number of Phones Using')
         
-    with col3:
-        X_incomg = st.text_input('Income Group')
-        
-    with col4:
-        X_pacat1 = st.text_input('Physical Activity Categories')
-        
-    with col5:
-        X_prace1 = st.text_input('Race')
-        
-    with col1:
-        X_rfhype5 = st.text_input('High Blood Pressure Check')
-        
-    with col2:
-        X_rfseat2 = st.text_input('Seatbelt Use Check')
-        
-    with col3:
-        X_rfsmok3 = st.text_input('Smoking Status Check')
-        
-    with col4:
-        X_smoker3 = st.text_input('Smoker Status Check')
-        
-    with col5:
-        X_state = st.text_input('State')
-        
-    with col1:
-        X_veg23 = st.text_input('Frequency of Eating Vegetables in a Day')
+  
     
     
     # code for Prediction
@@ -376,10 +346,8 @@ if selected == "Depression Prediction":
         # Modify the feature names accordingly
         depression_prediction = depression_model.predict([[
             float(menthlth), float(poorhlth), float(physhlth), float(X_bmi5), float(drvisits),
-            float(X_llcpwt2), float(X_vegesum), float(fc60_), float(maxvo2_), float(X_cholchk),
-            float(X_frt16), float(X_impnph), float(X_incomg), float(X_pacat1), float(X_prace1),
-            float(X_rfhype5), float(X_rfseat2), float(X_rfsmok3), float(X_smoker3), float(X_state),
-            float(X_veg23)
+            float(X_llcpwt2), float(X_vegesum), float(fc60_), float(maxvo2_),
+             float(X_impnph)
         ]])
         
         if depression_prediction[0] == 1:
