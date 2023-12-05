@@ -16,7 +16,7 @@ name='healthinsurance',
 version='0.0.1',
 author='Group4',
 packages=find_packages(),
-install_requires=get_requirments('requirement.txt')
+install_requires=get_requirments('requirements.txt')
 
 
 )
