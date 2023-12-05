@@ -1,19 +1,27 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import numpy as np
-import joblib
+from joblib import load
 from sklearn.preprocessing import RobustScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer
 import urllib.request
 
-# import requests
-# from io import BytesIO
-url = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/notebook/depression_model.sav'
+
+# Specify the raw GitHub content URL of the model file
+url = 'https://raw.githubusercontent.com/kuncheriatom/healthinsurance/dev/notebook/depression_model.sav'
 filename = 'depression_model.sav'
+
+# Download the file from the URL
 urllib.request.urlretrieve(url, filename)
 
 # Load the .sav file using joblib
-depression_model = joblib.load(filename)
+try:
+    loaded_model = load(filename)
+    print("Model loaded successfully.")
+except Exception as e:
+    print(f"Error loading the model: {e}")
+
+
 # Load the model using joblib
 # bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
 
