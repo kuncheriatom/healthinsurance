@@ -4,14 +4,21 @@ import numpy as np
 import joblib
 from sklearn.preprocessing import RobustScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer
+import urllib.request
+
 # import requests
 # from io import BytesIO
+url = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/notebook/depression_model.sav'
+filename = 'depression_model.sav'
+urllib.request.urlretrieve(url, filename)
 
+# Load the .sav file using joblib
+depression_model = joblib.load(filename)
 # Load the model using joblib
 # bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
 
 # Replace the URL with the raw URL of your model file on GitHub
-depression_model = joblib.load('depression_model.sav')
+# depression_model = joblib.load('depression_model.sav')
 
 # Download the model file
 # response = requests.get(model_url)
