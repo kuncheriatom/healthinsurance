@@ -7,11 +7,11 @@ from sklearn.compose import make_column_transformer
 
 # Load the model using joblib
 bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
-
+depression_model=joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\depression.sav')
 # sidebar for navigation
 with st.sidebar:
     selected = option_menu('Multiple Disease Prediction System',
-                          ['Bp Prediction', 'Heart Disease Prediction', 'Parkinsons Prediction'],
+                          ['Bp Prediction', 'Heart Disease Prediction', 'Depression Prediction'],
                           icons=['activity','heart','person'],
                           default_index=0)
 
@@ -283,93 +283,96 @@ if selected == 'Bp Prediction':
     
     
 
-# Parkinson's Prediction Page
-if (selected == "Parkinsons Prediction"):
+# Depression Prediction Page
+# Depression Prediction Page
+if selected == "Depression Prediction":
     
     # page title
-    st.title("Parkinson's Disease Prediction")
+    st.title("Depression Disease Prediction")
     
     col1, col2, col3, col4, col5 = st.columns(5)  
     
     with col1:
-        fo = st.text_input('MDVP:Fo(Hz)')
+        menthlth = st.text_input('Mental Health')
         
     with col2:
-        fhi = st.text_input('MDVP:Fhi(Hz)')
+        poorhlth = st.text_input('Poor Health')
         
     with col3:
-        flo = st.text_input('MDVP:Flo(Hz)')
+        physhlth = st.text_input('Physical Health')
         
     with col4:
-        Jitter_percent = st.text_input('MDVP:Jitter(%)')
+        X_bmi5 = st.text_input('BMI')
         
     with col5:
-        Jitter_Abs = st.text_input('MDVP:Jitter(Abs)')
+        drvisits = st.text_input('Doctor Visits')
         
     with col1:
-        RAP = st.text_input('MDVP:RAP')
+        X_llcpwt2 = st.text_input('Weight')
         
     with col2:
-        PPQ = st.text_input('MDVP:PPQ')
+        X_vegesum = st.text_input('Vegetable Consumption Frequency')
         
     with col3:
-        DDP = st.text_input('Jitter:DDP')
+        fc60_ = st.text_input('Frequency of Eating Fruits in a Day')
         
     with col4:
-        Shimmer = st.text_input('MDVP:Shimmer')
+        maxvo2_ = st.text_input('Maximum Oxygen Consumption')
         
     with col5:
-        Shimmer_dB = st.text_input('MDVP:Shimmer(dB)')
+        X_cholchk = st.text_input('Cholesterol Check')
         
     with col1:
-        APQ3 = st.text_input('Shimmer:APQ3')
+        X_frt16 = st.text_input('Fruit Consumption 16 or More Times/Day')
         
     with col2:
-        APQ5 = st.text_input('Shimmer:APQ5')
+        X_impnph = st.text_input('Importance of Physical Health')
         
     with col3:
-        APQ = st.text_input('MDVP:APQ')
+        X_incomg = st.text_input('Income Group')
         
     with col4:
-        DDA = st.text_input('Shimmer:DDA')
+        X_pacat1 = st.text_input('Physical Activity Categories')
         
     with col5:
-        NHR = st.text_input('NHR')
+        X_prace1 = st.text_input('Race')
         
     with col1:
-        HNR = st.text_input('HNR')
+        X_rfhype5 = st.text_input('High Blood Pressure Check')
         
     with col2:
-        RPDE = st.text_input('RPDE')
+        X_rfseat2 = st.text_input('Seatbelt Use Check')
         
     with col3:
-        DFA = st.text_input('DFA')
+        X_rfsmok3 = st.text_input('Smoking Status Check')
         
     with col4:
-        spread1 = st.text_input('spread1')
+        X_smoker3 = st.text_input('Smoker Status Check')
         
     with col5:
-        spread2 = st.text_input('spread2')
+        X_state = st.text_input('State')
         
     with col1:
-        D2 = st.text_input('D2')
-        
-    with col2:
-        PPE = st.text_input('PPE')
-        
+        X_veg23 = st.text_input('Frequency of Eating Vegetables in a Day')
     
     
     # code for Prediction
-    parkinsons_diagnosis = ''
+    depression_diagnosis = ''
     
     # creating a button for Prediction    
-    if st.button("Parkinson's Test Result"):
-        parkinsons_prediction = parkinsons_model.predict([[fo, fhi, flo, Jitter_percent, Jitter_Abs, RAP, PPQ,DDP,Shimmer,Shimmer_dB,APQ3,APQ5,APQ,DDA,NHR,HNR,RPDE,DFA,spread1,spread2,D2,PPE]])                          
+    if st.button("Depression Test Result"):
+        # Modify the feature names accordingly
+        depression_prediction = depression_model.predict([[
+            float(menthlth), float(poorhlth), float(physhlth), float(X_bmi5), float(drvisits),
+            float(X_llcpwt2), float(X_vegesum), float(fc60_), float(maxvo2_), float(X_cholchk),
+            float(X_frt16), float(X_impnph), float(X_incomg), float(X_pacat1), float(X_prace1),
+            float(X_rfhype5), float(X_rfseat2), float(X_rfsmok3), float(X_smoker3), float(X_state),
+            float(X_veg23)
+        ]])
         
-        if (parkinsons_prediction[0] == 1):
-          parkinsons_diagnosis = "The person has Parkinson's disease"
+        if depression_prediction[0] == 1:
+            depression_diagnosis = "The person is predicted to have Depression"
         else:
-          parkinsons_diagnosis = "The person does not have Parkinson's disease"
+            depression_diagnosis = "The person is predicted to not have Depression"
         
-    st.success(parkinsons_diagnosis)
-
+    st.success(depression_diagnosis)
