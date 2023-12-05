@@ -2,8 +2,8 @@ pandas
 numpy
 seaborn
 streamlit
+streamlit_option_menu
 sklearn
 matplotlib
-streamlit_option_menu
 joblib
 -e .
