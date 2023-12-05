@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronic Health Condition Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #predictionResult {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chronic Health Condition Predictor</h1>
+    <form id="healthForm">
+        
+        <label for="sex">Gender</label>
+        <select id="sex" name="sex">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+
+        <label for="weight2">Weight (kg):</label>
+        <input type="number" id="weight2" name="weight2">
+
+        <label for="height3">Height (cm):</label>
+        <input type="number" id="height3" name="height3">
+
+        <label for="employ1">What is your employment status?</label>
+        <select id="employ1" name="employ1">
+            <option value="">Select</option>
+            <option value="Retired">Retired</option>
+            <option value="Employed for wages">Employed for wages</option>
+            <option value="A homemaker">A homemaker</option>
+            <option value="A student">A student</option>
+            <option value="Out of work for 1 year or more">Out of work for 1 year or more</option>
+            <option value="Out of work for less than 1 year">Out of work for less than 1 year</option>
+            <option value="Self-employed">Self-employed</option>
+            <option value="Unable to work">Unable to work</option>
+        </select>
+        
+        
+        <label for="renthom1">Housing situation</label>
+        <select id="renthom1" name="renthom1">
+            <option value="">Select</option>
+            <option value="Own">Own</option>Other arrangement
+            <option value="Rent">Rent</option>
+            <option value="Other arrangement">Other arrangement</option>
+        </select>
+        
+        <label for="bphigh4">Do you have/had high blood pressure?</label>
+        <select id="bphigh4" name="bphigh4">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Told borderline or pre-hypertensive">Borderline or pre-hypertensive</option>
+            <option value="Yes, but female told only during pregnancy">Yes, but only during pregnancy</option>
+        </select>
+
+        <label for="toldhi2">Do you have/had high blood cholesterol level?</label>
+        <select id="toldhi2" name="toldhi2">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="chcocncr">Do you have/had any type of cancer?</label>
+        <select id="chcocncr" name="chcocncr">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="havarth3">Have you have/had arthritis?</label>
+        <select id="havarth3" name="havarth3">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="addepev2">Do you have depression?</label>
+        <select id="addepev2" name="addepev2">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+
+        <label for="qlactlm2">Do you have good amount of physical activity daily?</label>
+        <select id="qlactlm2" name="qlactlm2">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="diabete3">Do you have/had diabetes?</label>
+        <select id="diabete3" name="diabete3">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="No, pre-diabetes or borderline diabetes">Pre-diabetes or borderline diabetes</option>
+            <option value="Yes, but female told only during pregnancy">Yes, but only during pregnancy</option>
+        </select>
+
+        <label for="smoke100">Do you smoke cigarettes?</label>
+        <select id="smoke100" name="smoke100">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="asthma3">Do you have/had asthma?</label>
+        <select id="asthma3" name="asthma3">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="alcday5">On average, how many days do you consume alchoholic beverages in a month?</label>
+        <input type="number" id="alcday5" name="alcday5">
+       
+
+        <button type="button" onclick="predict()">Predict</button>
+    </form>
+
+    <!-- New section to display predictions -->
+    <div id="predictionResult"></div>
+
+    <script>
+        function predict() {
+            // Collect user input
+            var formData = {
+                'bphigh4': document.getElementById('bphigh4').value,
+                'toldhi2': document.getElementById('toldhi2').value,
+                'chcocncr': document.getElementById('chcocncr').value,
+                'havarth3': document.getElementById('havarth3').value,
+                'addepev2': document.getElementById('addepev2').value,
+                'employ1': document.getElementById('employ1').value,
+                'weight2': parseFloat(document.getElementById('weight2').value) || 0.0, // Convert to float
+                'height3': parseFloat(document.getElementById('height3').value) || 0.0,
+                'renthom1': document.getElementById('renthom1').value,
+                'qlactlm2': document.getElementById('qlactlm2').value,
+                'diabete3': document.getElementById('diabete3').value,
+                'smoke100': document.getElementById('smoke100').value,
+                'asthma3': document.getElementById('asthma3').value,
+                'alcday5': parseFloat(document.getElementById('alcday5').value) || 0.0,
+                'sex': document.getElementById('sex').value
+            };
+
+            // Validate user input (you may add additional validation logic)
+            console.log('Form Data:', formData);
+            console.log('Stringified Form Data:', JSON.stringify(formData));
+
+            // Send a POST request to the server
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display prediction result
+                displayPredictionResult(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        function displayPredictionResult(predictions) {
+            // Display the prediction results on the page
+            var resultDiv = document.getElementById('predictionResult');
+            resultDiv.innerHTML = '<h2>Prediction Results</h2>';
+
+            for (var condition in predictions) {
+                var probability = predictions[condition];
+                resultDiv.innerHTML += '<p>Possible chronic health condition for ' + condition + ':</p>';
+                resultDiv.innerHTML += '<p>There is ' + (probability * 100).toFixed(2) + '% chance</p>';
+            }
+        }
+    </script>
+</body>
+</html>
