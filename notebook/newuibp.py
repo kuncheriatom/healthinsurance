@@ -16,7 +16,7 @@ urllib.request.urlretrieve(url, filename)
 
 # Load the .sav file using joblib
 try:
-    loaded_model = load(filename)
+    depression_model = load(filename)
     print("Model loaded successfully.")
 except Exception as e:
     print(f"Error loading the model: {e}")
