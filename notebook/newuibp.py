@@ -4,10 +4,22 @@ import numpy as np
 import joblib
 from sklearn.preprocessing import RobustScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer
+import requests
+from io import BytesIO
 
 # Load the model using joblib
-bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
-depression_model=joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\depression.sav')
+# bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
+
+# Replace the URL with the raw URL of your model file on GitHub
+model_url = 'https://github.com/kuncheriatom/healthinsurance/raw/dev/notebook/depression_model.sav'
+
+# Download the model file
+response = requests.get(model_url)
+response.raise_for_status()  # Check for HTTP errors
+
+# Load the model from the downloaded content
+depression_model = joblib.load(BytesIO(response.content))
+
 # sidebar for navigation
 with st.sidebar:
     selected = option_menu('Multiple Disease Prediction System',
@@ -326,7 +338,7 @@ if selected == "Depression Prediction":
         X_frt16 = st.text_input('Fruit Consumption 16 or More Times/Day')
         
     with col2:
-        X_impnph = st.text_input('Importance of Physical Health')
+        X_impnph = st.text_input('Number of Phones Using')
         
     with col3:
         X_incomg = st.text_input('Income Group')
