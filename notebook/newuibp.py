@@ -11,7 +11,7 @@ from sklearn.compose import make_column_transformer
 # bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
 
 # Replace the URL with the raw URL of your model file on GitHub
-depression_model = 'depression_model.sav'
+depression_model = joblib.load('depression_model.sav')
 
 # Download the model file
 # response = requests.get(model_url)
