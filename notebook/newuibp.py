@@ -194,10 +194,10 @@ if selected == 'Bp Prediction':
             input_transformed = np.hstack([numeric_input_transformed, non_numeric_input_transformed])
 
             # Make predictions
-            prediction = bp_model.predict(input_transformed)
+            # prediction = bp_model.predict(input_transformed)
 
             
-            st.success(f'The predicted class is: {prediction[0]}')
+            # st.success(f'The predicted class is: {prediction[0]}')
 
         except ValueError:
             st.error('Please enter valid numeric values for all fields.')
@@ -283,11 +283,11 @@ if selected == 'Bp Prediction':
     # creating a button for Prediction
     
     if st.button('Heart Disease Test Result'):
-        heart_prediction = heart_disease_model.predict([[age, sex, cp, trestbps, chol, fbs, restecg,thalach,exang,oldpeak,slope,ca,thal]])                          
+        # heart_prediction = heart_disease_model.predict([[age, sex, cp, trestbps, chol, fbs, restecg,thalach,exang,oldpeak,slope,ca,thal]])                          
         
-        if (heart_prediction[0] == 1):
-          heart_diagnosis = 'The person is having heart disease'
-        else:
+        # if (heart_prediction[0] == 1):
+        #   heart_diagnosis = 'The person is having heart disease'
+        # else:
           heart_diagnosis = 'The person does not have any heart disease'
         
     st.success(heart_diagnosis)
