@@ -3,7 +3,7 @@ numpy
 seaborn
 streamlit
 streamlit_option_menu
-sklearn
+scikit-learn
 matplotlib
 joblib
 -e .
