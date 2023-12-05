@@ -1,4 +1,9 @@
 pandas
 numpy
 seaborn
+streamlit
+sklearn
+matplotlib
+streamlit_option_menu
+joblib
 -e .
