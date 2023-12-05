@@ -5,10 +5,10 @@ import joblib
 from sklearn.preprocessing import RobustScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer
 
-depression_model = joblib.load('depression_model.sav')
+depression_model = joblib.load('E:\\dev2\\healthinsurance\\notebook\\depression_model.sav')
 
 # page title
-if(2==2)
+if(2==2):
         st.title("Depression Disease Prediction")
         
         col1, col2, col3, col4, col5 = st.columns(5)  
