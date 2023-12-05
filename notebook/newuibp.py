@@ -11,7 +11,7 @@ from io import BytesIO
 # bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
 
 # Replace the URL with the raw URL of your model file on GitHub
-model_url = 'https://github.com/kuncheriatom/healthinsurance/raw/dev/notebook/depression_model.sav'
+model_url = 'depression_model.sav'
 
 # Download the model file
 response = requests.get(model_url)
