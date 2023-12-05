@@ -106,19 +106,3 @@ print("Best Hyperparameters:", best_params)
 cv_scores = cross_val_score(model_anxiety, X_train_resampled, y_train_resampled, cv=5)
 print("Cross-Validation Scores:", cv_scores)
 print("Mean CV Accuracy:", np.mean(cv_scores))
-
-# Visualize class separability using PCA for anxiety analysis
-pca_anxiety = PCA(n_components=min(anxiety_features_scaled.shape[0], anxiety_features_scaled.shape[1]))
-features_pca_anxiety = pca_anxiety.fit_transform(anxiety_features_scaled)
-
-# Create a DataFrame with the reduced features and target for visualization
-features_pca_df_anxiety = pd.DataFrame(features_pca_anxiety, columns=[f'PC{i}' for i in range(1, features_pca_anxiety.shape[1] + 1)])
-features_pca_df_anxiety['Target'] = anxiety_target.values
-
-# Visualize class separability using a scatter plot for anxiety analysis
-plt.figure(figsize=(10, 8))
-sns.scatterplot(x='PC1', y='PC1', hue='Target', data=features_pca_df_anxiety, palette='viridis')
-plt.title('Class Separability for Anxiety Analysis - PCA')
-plt.xlabel('Principal Component 1 (PC1)')
-plt.ylabel('Principal Component 1 (PC1)')
-plt.show()
