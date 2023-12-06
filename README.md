@@ -18,14 +18,7 @@ Access Link - https://appuipy-gbb22usevle6jvdfvqyy8h.streamlit.app/
 
 This project provides a streamlit web application for predicting multiple diseases, including blood Pressuer, Depression, heartattack, Choronic disorders, Overall Health using machine learning algorithms. The prediction models are deployed using Streamlit, a Python library for building interactive web applications.
 
-Table of Contents
-Introduction
-Features
-Setup
-Usage
-Contributing
-License
-Introduction
+
 The Multiple Disease Prediction project aims to create a  web application that allows Insurance firms to input relevant medical information and receive predictions for different diseases for the clients so that company can leverge the this data and invest wisely. The machine learning models trained on Behavioral Risk Factor Surveillance System datasets cerated by the help of CDC, USA. which enable accurate predictions for various diseases before hand
 
 Features
