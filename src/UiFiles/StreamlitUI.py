@@ -1,20 +1,59 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import numpy as np
-import joblib
+from joblib import load
 from sklearn.preprocessing import RobustScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer
 # import requests
 # from io import BytesIO
+import urllib.request
 
 # Load the model using joblib
 # bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
+# Specify the raw GitHub content URL of the model file
+url_depression = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/src/ModelSavFiles/depression_model.sav'
+filename_dep = 'depression_model.sav'
 
+# Download the file from the URL
+urllib.request.urlretrieve(url_depression, filename_dep)
+
+# Load the .sav file using joblib
+try:
+    depression_model = load(filename_dep)
+    print("Depression Model loaded successfully.")
+except Exception as e:
+    print(f"Error loading the model: {e}")
+
+url_bp = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/src/ModelSavFiles/bp_model.sav'
+filename_bp = 'bp_model.sav'
+
+# Download the file from the URL
+urllib.request.urlretrieve(url_depression, filename_bp)
+
+# Load the .sav file using joblib
+try:
+    bp_model = load(filename_bp)
+    print("Bp Model loaded successfully.")
+except Exception as e:
+    print(f"Error loading the model: {e}")
+
+url_arth = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/src/ModelSavFiles/arthritis_model.sav'
+filename_art = 'arthritis_model.sav'
+
+# Download the file from the URL
+urllib.request.urlretrieve(url_depression, filename_art)
+
+# Load the .sav file using joblib
+try:
+    bp_model = load(filename_art)
+    print("Artheritis Model loaded successfully.")
+except Exception as e:
+    print(f"Error loading the model: {e}")
 # Replace the URL with the raw URL of your model file on GitHub
-bp_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\bp_model.sav')
-depression_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\depression_model.sav')
-overallhealth_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\overallhealth_model.sav')
-arthritis_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode2\\healthinsurance\\src\\ModelSavFiles\\arthritis_model.sav')
+# bp_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\bp_model.sav')
+# depression_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\depression_model.sav')
+# overallhealth_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\overallhealth_model.sav')
+# arthritis_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode2\\healthinsurance\\src\\ModelSavFiles\\arthritis_model.sav')
 
 # Download the model file
 # response = requests.get(model_url)
