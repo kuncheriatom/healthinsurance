@@ -1,32 +1,47 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import numpy as np
-from joblib import load
-from sklearn.preprocessing import RobustScaler, OneHotEncoder
-from sklearn.compose import make_column_transformer
 import urllib.request
-
-
-# Specify the raw GitHub content URL of the model file
-url = 'https://raw.githubusercontent.com/kuncheriatom/healthinsurance/dev/notebook/depression_model.sav'
-filename = 'depression_model.sav'
-
-# Download the file from the URL
-urllib.request.urlretrieve(url, filename)
-
-# Load the .sav file using joblib
-try:
-    depression_model = load(filename)
-    print("Model loaded successfully.")
-except Exception as e:
-    print(f"Error loading the model: {e}")
-
+import joblib 
 
 # Load the model using joblib
 # bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
+# Specify the raw GitHub content URL of the model file
+url_depression = 'https://raw.githubusercontent.com/kuncheriatom/healthinsurance/dev/model/depression_model.sav'
+filename_dep = 'depression_model.sav'
+
+# Download the file from the URL
+urllib.request.urlretrieve(url_depression, filename_dep)
+
+# Load the .sav file using joblib
+try:
+    depression_model = joblib.load(filename_dep)
+    print("Depression Model loaded successfully.")
+except Exception as e:
+    print(f"Error loading the model: {e}")
+
+url_bp = 'https://raw.githubusercontent.com/kuncheriatom/healthinsurance/dev/model/bp_model.sav'
+filename_bp = 'bp_model.sav'
+urllib.request.urlretrieve(url_bp, filename_bp)
+try:
+    bp_model = joblib.load(filename_bp)
+    print("Bp Model loaded successfully.")
+except Exception as e:
+    print(f"Error loading the model: {e}")
+
+url_arth = 'https://raw.githubusercontent.com/kuncheriatom/healthinsurance/dev/model/arthritis_model.sav'
+filename_art = 'arthritis_model.sav'
+urllib.request.urlretrieve(url_arth, filename_art)
+try:
+    arthritis_model = joblib.load(filename_art)
+    print("Arthritis Model loaded successfully.")
+except Exception as e:
+    print(f"Error loading the model: {e}")
 
 # Replace the URL with the raw URL of your model file on GitHub
-# depression_model = joblib.load('depression_model.sav')
+# bp_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\bp_model.sav')
+# depression_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\depression_model.sav')
+# overallhealth_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\overallhealth_model.sav')
+# arthritis_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode2\\healthinsurance\\src\\ModelSavFiles\\arthritis_model.sav')
 
 # Download the model file
 # response = requests.get(model_url)
@@ -38,279 +53,157 @@ except Exception as e:
 # sidebar for navigation
 with st.sidebar:
     selected = option_menu('Multiple Disease Prediction System',
-                          ['Bp Prediction', 'Heart Disease Prediction', 'Depression Prediction'],
-                          icons=['activity','heart','person'],
+                          ['Bp Prediction', 'Overall Health Prediction', 'Depression Prediction','Arthritis Prediction'],
+                          icons=['activity','heart','mind','cancer','health'],
                           default_index=0)
 
 # Diabetes Prediction Page
-if selected == 'Bp Prediction':
+if selected == "Bp Prediction":
+    
     # page title
-    st.title('BP Prediction')
-
-    # getting the input data from the user
-    col1, col2, col3 = st.columns(3)
-
+    st.title("Bp Prediction")
+    
+    col1, col2, col3, col4, col5 = st.columns(5)  
+    
     with col1:
-        physhlth = st.text_input('Physical Health')
-
+        X_age80 = st.text_input('Age')
+        
     with col2:
-        menthlth = st.text_input('Mental Health')
-
+        maxvo2_ = st.text_input('Maximum Oxygen Consumption')
+        
     with col3:
-        poorhlth = st.text_input('Poor Health')
-
-    with col1:
-        bloodcho = st.text_input('Blood Cholesterol')
-
-    with col2:
-        cholchk = st.text_input('Cholesterol Check')
-
-    with col3:
-        toldhi2 = st.text_input('Told Health Indicator')
-
+        fc60_ = st.text_input('Frequency of Eating Fruits in a Day')
+        
+    with col4:
+        X_bmi5 = st.text_input('BMI')
+        
+        
     with col1:
         weight2 = st.text_input('Weight')
-
+        
     with col2:
-        height3 = st.text_input('Height')
-
+        X_llcpwt = st.text_input('Alcohol consumption in ml')
+        
     with col3:
-        sleptim1 = st.text_input('Sleep Time')
-
-    with col1:
-        smoke100 = st.text_input('Smoking Status')
-
-    with col2:
-        usenow3 = st.text_input('Current Alcohol Use')
-
-    with col3:
-        alcday5 = st.text_input('Alcohol Consumption Frequency')
-
-    with col1:
-        X_rfchol = st.text_input('Cholesterol Checked')
-
-    with col2:
-        X_drdxar1 = st.text_input('Arthritis Diagnosis')
-
-    with col3:
-        X_prace1 = st.text_input('Race')
-
-    with col1:
-        X_bmi5 = st.text_input('BMI')
-
-    with col2:
-        X_bmi5cat = st.text_input('BMI Category')
-
-    with col3:
-        X_rfbmi5 = st.text_input('BMI Check')
-
-    with col1:
-        X_rfsmok3 = st.text_input('Smoking Status Check')
-
-    with col2:
-        drnkany5 = st.text_input('Alcohol Consumption Check')
-
-    with col3:
-        X_drnkdy4 = st.text_input('Number of Days Drinking')
-
-    with col1:
-        X_drnkmo4 = st.text_input('Number of Months Drinking')
-
-    with col2:
-        X_rfdrwm4 = st.text_input('Check for Drinking Weekly')
-
-    with col3:
-        X_rfdrhv4 = st.text_input('Check for Heavy Drinking')
-
-    with col1:
-        X_frtresp = st.text_input('Fruit Consumption Response')
-
-    with col2:
-        X_vegresp = st.text_input('Vegetable Consumption Response')
-
-    with col3:
-        X_frutsum = st.text_input('Fruit Consumption Frequency')
-
-    with col1:
+        X_psu = st.text_input('Cig usage per day')
+        
+    with col4:
+        X_ststr = st.text_input('Stratum Weight')
+        
+    with col5:
         X_vegesum = st.text_input('Vegetable Consumption Frequency')
-
-    with col2:
-        X_frtlt1 = st.text_input('Fruit Consumption Less Than 1 Time/Day')
-
-    with col3:
-        X_veglt1 = st.text_input('Vegetable Consumption Less Than 1 Time/Day')
-
+        
     with col1:
-        X_frt16 = st.text_input('Fruit Consumption 16 or More Times/Day')
+        drvisits = st.text_input('Doctor Visits')
+        
+    
+    # code for Prediction
+    bp_diagnosis = ''
+    
+    # creating a button for Prediction    
+    if st.button("BP Test Result"):
+        # Modify the feature names accordingly
+        bp_prediction = bp_model.predict([[
+            float(X_age80), float(maxvo2_), float(fc60_), float(X_bmi5),
+            float(weight2), float(X_llcpwt), float(X_psu), float(X_ststr), float(X_vegesum),
+            float(drvisits)
+        ]])
+        
+        if bp_prediction[0] == 'Yes':
+            bp_diagnosis = "The person is predicted to have BP"
+        elif bp_prediction[0] == 'prehypertensive':
+            bp_diagnosis = "The person is told borderline or pre-hypertensive"
+        elif bp_prediction[0] == 'No':
+            bp_diagnosis = "The person is not predicted to have BP"
+        else:
+             bp_diagnosis = "Unknown"
+    
+    st.success(bp_diagnosis)
+    
 
+
+
+        
+        
+     
+# Overall Health Prediction Page
+if selected == "Overall Health Prediction":
+    
+    # page title
+    st.title("Overall Health Prediction")
+    
+    col1, col2, col3, col4, col5 = st.columns(5)  
+    
+    with col1:
+        physhlth = st.text_input('Physical Health')
+        
     with col2:
-        genhlth = st.text_input('General Health')
-
+        poorhlth = st.text_input('Poor Health')
+        
     with col3:
-        activity_product = st.text_input('Activity Product')
+        menthlth = st.text_input('Mental Health')
+        
+    with col4:
+        X_bmi5 = st.text_input('BMI')
+        
+    with col5:
+        drvisits = st.text_input('Doctor Visits')
+        
+    col6, col7, col8, col9, col10 = st.columns(5)
     
-    # Make predictions when the user clicks a button
-    if st.button('BP Test Result'):
-        # Validate input and make predictions
-        try:
-            input_data = np.array([[
-                float(physhlth), float(menthlth), float(poorhlth), bloodcho, float(cholchk),
-                toldhi2, float(weight2), float(height3), float(sleptim1), smoke100,
-                usenow3, float(alcday5), X_rfchol, X_drdxar1,
-                X_prace1, float(X_bmi5), X_bmi5cat, X_rfbmi5, X_rfsmok3,
-                drnkany5, float(X_drnkdy4), float(X_drnkmo4), X_rfdrwm4, X_rfdrhv4,
-                X_frtresp, X_vegresp, float(X_frutsum), float(X_vegesum), X_frtlt1,
-                X_veglt1, X_frt16, genhlth, float(activity_product)
-            ]])
-
-            
-
-            # Assuming 'input_features' is the list of feature names provided by the user interface
-            input_features = [
-                'physhlth', 'menthlth', 'poorhlth', 'bloodcho', 'cholchk',
-                'toldhi2', 'weight2', 'height3', 'sleptim1', 'smoke100',
-                'usenow3', 'alcday5', 'X_rfhype5', 'X_rfchol', 'X_drdxar1',
-                'X_prace1', 'X_bmi5', 'X_bmi5cat', 'X_rfbmi5', 'X_rfsmok3',
-                'drnkany5', 'X_drnkdy4', 'X_drnkmo4', 'X_rfdrwm4', 'X_rfdrhv4',
-                'X_frtresp', 'X_vegresp', 'X_frutsum', 'X_vegesum', 'X_frtlt1',
-                'X_veglt1', 'X_frt16', 'genhlth', 'activity_product'
-            ]
-
-            # Identify numeric and non-numeric features based on user input
-           # Identify numeric and non-numeric features based on user input
-            numeric_features = [feature for feature in input_features if isinstance(input_data[0][input_features.index(feature)], (int, float))]
-            non_numeric_features = [feature for feature in input_features if feature not in numeric_features]
-            column_trans = make_column_transformer(
-                (RobustScaler(), numeric_features),
-                (OneHotEncoder(handle_unknown='ignore'), non_numeric_features)
-            )
-
-
-            # Handle missing values and scaling
-            # numeric_transformer = Pipeline(steps=[
-            #     ('imputer', SimpleImputer(strategy='mean')),
-            #     ('scaler', StandardScaler())
-            # ])
-
-            # preprocessor = ColumnTransformer(
-            #     transformers=[
-            #         ('num', numeric_transformer, numeric_features),
-            #         ('non_num', 'drop', non_numeric_features)
-            #     ]
-            # )
-            # print(input_features)
-          # Transform the numeric features
-            numeric_input_transformed = column_trans.named_transformers_['robustscaler'].transform(input_data[:, :len(numeric_features)])
-
-            # Transform the non-numeric features
-            non_numeric_input_transformed = column_trans.named_transformers_['onehotencoder'].transform(input_data[:, len(numeric_features):])
-
-            # Combine the transformed features
-            input_transformed = np.hstack([numeric_input_transformed, non_numeric_input_transformed])
-
-            # Make predictions
-            # prediction = bp_model.predict(input_transformed)
-
-            
-            # st.success(f'The predicted class is: {prediction[0]}')
-
-        except ValueError:
-            st.error('Please enter valid numeric values for all fields.')
+    with col6:
+        maxvo2_ = st.text_input('Maximum Oxygen Consumption')
+        
+    with col7:
+        fc60_ = st.text_input('Frequency of Eating Fruits in a Day')
+        
+    with col8:
+        X_llcpwt = st.text_input('Weight')
+        
+    with col9:
+        X_ststr = st.text_input('Stress Level')
+        
+    with col10:
+        sleptim1 = st.text_input('Sleep Duration')
+        
+    col11, col12, col13, col14, col15 = st.columns(5)
     
-    
-#     # code for Prediction
-#     bp_diagnosis = ''
-    
-#     # creating a button for Prediction
-    
-#     if st.button('BP Test Result'):
-#         bp_prediction = bp_model.predict([[
-#     'physhlth', 'menthlth', 'poorhlth', 'bloodcho', 'cholchk', 'toldhi2', 'weight2',
-#     'height3', 'sleptim1', 'smoke100', 'usenow3', 'alcday5', 'X_rfhype5', 'X_rfchol', 'X_drdxar1',
-#     'X_prace1', 'X_bmi5', 'X_bmi5cat', 'X_rfbmi5', 'X_rfsmok3', 'drnkany5', 'X_drnkdy4', 'X_drnkmo4',
-#     'X_rfdrwm4', 'X_rfdrhv4', 'X_frtresp', 'X_vegresp', 'X_frutsum', 'X_vegesum', 'X_frtlt1', 'X_veglt1',
-#     'X_frt16', 'genhlth', 'activity_product'
-# ]])
+    with col11:
+        X_age80 = st.text_input('Age')
         
-#         if (bp_prediction[0] == 1):
-#           bp_diagnosis = 'The person is having  bp'
-#         else:
-#           bp_diagnosis = 'The person is not having bp'
+    with col12:
+        X_drnkmo4 = st.text_input('Monthly Alcohol Consumption')
         
-    # st.success(bp_diagnosis)
+    with col13:
+        X_strwt = st.text_input('Strength Training Frequency')
+        
+    with col14:
+        X_vegesum = st.text_input('Vegetable Consumption Frequency')
+        
+   
+    
+    # code for Prediction
+    overallhealth_diagnosis = ''
+    
+    # # creating a button for Prediction    
+    # if st.button("Overall Health Test Result"):
+    #     # Modify the feature names accordingly
+    #     overallhealth_prediction = overallhealth_model.predict([[
+    #         float(physhlth), float(poorhlth), float(menthlth), float(X_bmi5), float(drvisits),
+    #         float(maxvo2_), float(fc60_), float(X_llcpwt), float(X_ststr),
+    #         float(sleptim1), float(X_age80), float(X_drnkmo4),  float(X_strwt), float(X_vegesum)
+    #     ]])
+        
+    #     if overallhealth_prediction[0] == 'Good or Better Health':
+    #         overallhealth_diagnosis = "The person is predicted to have Overall Good Health"
+    #     else:
+    #         overallhealth_diagnosis = "The person is predicted to have Overall Health Issues"
+        
+    # st.success(overallhealth_diagnosis)
 
 
 
 
-# # Heart Disease Prediction Page
-# if (selected == 'Heart Disease Prediction'):
-    
-#     # page title
-#     st.title('Heart Disease Prediction')
-    
-#     col1, col2, col3 = st.columns(3)
-    
-#     with col1:
-#         age = st.text_input('Age')
-        
-#     with col2:
-#         sex = st.text_input('Sex')
-        
-#     with col3:
-#         cp = st.text_input('Chest Pain types')
-        
-#     with col1:
-#         trestbps = st.text_input('Resting Blood Pressure')
-        
-#     with col2:
-#         chol = st.text_input('Serum Cholestoral in mg/dl')
-        
-#     with col3:
-#         fbs = st.text_input('Fasting Blood Sugar > 120 mg/dl')
-        
-#     with col1:
-#         restecg = st.text_input('Resting Electrocardiographic results')
-        
-#     with col2:
-#         thalach = st.text_input('Maximum Heart Rate achieved')
-        
-#     with col3:
-#         exang = st.text_input('Exercise Induced Angina')
-        
-#     with col1:
-#         oldpeak = st.text_input('ST depression induced by exercise')
-        
-#     with col2:
-#         slope = st.text_input('Slope of the peak exercise ST segment')
-        
-#     with col3:
-#         ca = st.text_input('Major vessels colored by flourosopy')
-        
-#     with col1:
-#         thal = st.text_input('thal: 0 = normal; 1 = fixed defect; 2 = reversable defect')
-        
-        
-     
-     
-#     # code for Prediction
-    heart_diagnosis = ''
-    
-    # creating a button for Prediction
-    
-    if st.button('Heart Disease Test Result'):
-        # heart_prediction = heart_disease_model.predict([[age, sex, cp, trestbps, chol, fbs, restecg,thalach,exang,oldpeak,slope,ca,thal]])                          
-        
-        # if (heart_prediction[0] == 1):
-        #   heart_diagnosis = 'The person is having heart disease'
-        # else:
-          heart_diagnosis = 'The person does not have any heart disease'
-        
-    st.success(heart_diagnosis)
-        
-    
-    
-
-# Depression Prediction Page
 # Depression Prediction Page
 if selected == "Depression Prediction":
     
@@ -347,12 +240,10 @@ if selected == "Depression Prediction":
         maxvo2_ = st.text_input('Maximum Oxygen Consumption')
         
         
-    with col2:
+    with col5:
         X_impnph = st.text_input('Number of Phones Using')
         
-  
-    
-    
+   
     # code for Prediction
     depression_diagnosis = ''
     
@@ -362,12 +253,82 @@ if selected == "Depression Prediction":
         depression_prediction = depression_model.predict([[
             float(menthlth), float(poorhlth), float(physhlth), float(X_bmi5), float(drvisits),
             float(X_llcpwt2), float(X_vegesum), float(fc60_), float(maxvo2_),
-             float(X_impnph)
+            float(X_impnph)
         ]])
         
-        if depression_prediction[0] == 1:
+        if depression_prediction[0] == 'Yes':
             depression_diagnosis = "The person is predicted to have Depression"
         else:
             depression_diagnosis = "The person is predicted to not have Depression"
         
     st.success(depression_diagnosis)
+
+    # Arthritis Prediction Page
+if selected == "Arthritis Prediction":
+    
+    # page title
+    st.title("Arthritis Prediction")
+    
+    col1, col2, col3, col4, col5 = st.columns(5)  
+    
+    with col1:
+        X_age80 = st.text_input('Age')
+        
+    with col2:
+        fc60_ = st.text_input('Frequency of Eating Fruits in a Day')
+        
+    with col3:
+        maxvo2_ = st.text_input('Maximum Oxygen Consumption')
+        
+    with col4:
+        physhlth = st.text_input('Physical Health')
+        
+    with col5:
+        X_bmi5 = st.text_input('BMI')
+        
+    col6, col7, col8, col9, col10 = st.columns(5)
+    
+    with col6:
+        drvisits = st.text_input('Doctor Visits')
+        
+    with col7:
+        poorhlth = st.text_input('Poor Health')
+        
+    with col8:
+        X_llcpwt = st.text_input('Weight')
+        
+    with col9:
+        X_psu = st.text_input('Somek per day')
+        
+    with col10:
+        X_llcpwt2 = st.text_input('Weight for Age')
+        
+    col11, col12, col13, col14, col15 = st.columns(5)
+    
+    with col11:
+        X_strwt = st.text_input('Strength Training Frequency')
+        
+    with col12:
+        X_wt2rake = st.text_input('Physical Activity')
+        
+    # code for Prediction
+    arthritis_diagnosis = ''
+    
+    # creating a button for Prediction    
+    if st.button("Arthritis Test Result"):
+        # Modify the feature names accordingly
+        arthritis_prediction = arthritis_model.predict([[
+            float(X_age80), float(fc60_), float(maxvo2_), float(physhlth), float(X_bmi5),
+            float(drvisits), float(poorhlth), float(X_llcpwt), float(X_psu),
+            float(X_llcpwt2), float(X_strwt), float(X_wt2rake)
+        ]])
+        
+        if arthritis_prediction[0] == 'Yes':
+            arthritis_diagnosis = "The person is predicted to have Arthritis"
+        else:
+            arthritis_diagnosis = "The person is predicted to not have Arthritis"
+        
+    st.success(arthritis_diagnosis)
+
+
+
