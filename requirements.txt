@@ -1,0 +1,10 @@
+pandas
+numpy
+seaborn
+streamlit
+streamlit_option_menu
+scikit-learn
+matplotlib
+joblib
+urllib3
+-e .
