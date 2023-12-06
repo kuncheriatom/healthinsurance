@@ -19,36 +19,29 @@ urllib.request.urlretrieve(url_depression, filename_dep)
 
 # Load the .sav file using joblib
 try:
-    depression_model = load(filename_dep)
+    depression_model = joblib.load(filename_dep)
     print("Depression Model loaded successfully.")
 except Exception as e:
     print(f"Error loading the model: {e}")
 
-url_bp = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/src/ModelSavFiles/bp_model.sav'
+url_bp = 'https://github.com/kuncheriatom/healthinsurance/raw/dev/src/ModelSavFiles/bp_model.sav'
 filename_bp = 'bp_model.sav'
-
-# Download the file from the URL
-urllib.request.urlretrieve(url_depression, filename_bp)
-
-# Load the .sav file using joblib
+urllib.request.urlretrieve(url_bp, filename_bp)
 try:
-    bp_model = load(filename_bp)
+    bp_model = joblib.load(filename_bp)
     print("Bp Model loaded successfully.")
 except Exception as e:
-    print(f"Error loading the model: {e}")
+    print(f"Error loading the model: {e}")
 
-url_arth = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/src/ModelSavFiles/arthritis_model.sav'
+url_arth = 'https://github.com/kuncheriatom/healthinsurance/raw/dev/src/ModelSavFiles/arthritis_model.sav'
 filename_art = 'arthritis_model.sav'
-
-# Download the file from the URL
-urllib.request.urlretrieve(url_depression, filename_art)
-
-# Load the .sav file using joblib
+urllib.request.urlretrieve(url_arth, filename_art)
 try:
-    arthritis_model = load(filename_art)
-    print("Artheritis Model loaded successfully.")
+    arthritis_model = joblib.load(filename_art)
+    print("Arthritis Model loaded successfully.")
 except Exception as e:
-    print(f"Error loading the model: {e}")
+    print(f"Error loading the model: {e}")
+
 # Replace the URL with the raw URL of your model file on GitHub
 # bp_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\bp_model.sav')
 # depression_model = joblib.load('C:\\Users\\sachu\\Desktop\\Project\\devcode\\healthinsurance\\src\\ModelSavFiles\\depression_model.sav')
