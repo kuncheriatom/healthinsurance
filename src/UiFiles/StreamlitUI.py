@@ -45,7 +45,7 @@ urllib.request.urlretrieve(url_depression, filename_art)
 
 # Load the .sav file using joblib
 try:
-    bp_model = load(filename_art)
+    arthritis_model = load(filename_art)
     print("Artheritis Model loaded successfully.")
 except Exception as e:
     print(f"Error loading the model: {e}")
@@ -197,21 +197,21 @@ if selected == "Overall Health Prediction":
     # code for Prediction
     overallhealth_diagnosis = ''
     
-    # creating a button for Prediction    
-    if st.button("Overall Health Test Result"):
-        # Modify the feature names accordingly
-        overallhealth_prediction = overallhealth_model.predict([[
-            float(physhlth), float(poorhlth), float(menthlth), float(X_bmi5), float(drvisits),
-            float(maxvo2_), float(fc60_), float(X_llcpwt), float(X_ststr),
-            float(sleptim1), float(X_age80), float(X_drnkmo4),  float(X_strwt), float(X_vegesum)
-        ]])
+    # # creating a button for Prediction    
+    # if st.button("Overall Health Test Result"):
+    #     # Modify the feature names accordingly
+    #     overallhealth_prediction = overallhealth_model.predict([[
+    #         float(physhlth), float(poorhlth), float(menthlth), float(X_bmi5), float(drvisits),
+    #         float(maxvo2_), float(fc60_), float(X_llcpwt), float(X_ststr),
+    #         float(sleptim1), float(X_age80), float(X_drnkmo4),  float(X_strwt), float(X_vegesum)
+    #     ]])
         
-        if overallhealth_prediction[0] == 'Good or Better Health':
-            overallhealth_diagnosis = "The person is predicted to have Overall Good Health"
-        else:
-            overallhealth_diagnosis = "The person is predicted to have Overall Health Issues"
+    #     if overallhealth_prediction[0] == 'Good or Better Health':
+    #         overallhealth_diagnosis = "The person is predicted to have Overall Good Health"
+    #     else:
+    #         overallhealth_diagnosis = "The person is predicted to have Overall Health Issues"
         
-    st.success(overallhealth_diagnosis)
+    # st.success(overallhealth_diagnosis)
 
 
 
