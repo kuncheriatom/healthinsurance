@@ -9,7 +9,7 @@ import urllib.request
 # Load the model using joblib
 # bp_model = joblib.load('E:\\healthinsurance-dev\\healthinsurance\\notebook\\bp_model.sav')
 # Specify the raw GitHub content URL of the model file
-url_depression = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/src/modelsavfiles/depression_model.sav'
+url_depression = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/model/depression_model.sav'
 filename_dep = 'depression_model.sav'
 
 # Download the file from the URL
@@ -22,7 +22,7 @@ try:
 except Exception as e:
     print(f"Error loading the model: {e}")
 
-url_bp = 'https://github.com/kuncheriatom/healthinsurance/raw/dev/src/modelsavfiles/bp_model.sav'
+url_bp = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/model/bp_model.sav'
 filename_bp = 'bp_model.sav'
 urllib.request.urlretrieve(url_bp, filename_bp)
 try:
@@ -31,7 +31,7 @@ try:
 except Exception as e:
     print(f"Error loading the model: {e}")
 
-url_arth = 'https://github.com/kuncheriatom/healthinsurance/raw/dev/src/modelsavfiles/arthritis_model.sav'
+url_arth = 'https://github.com/kuncheriatom/healthinsurance/blob/dev/model/arthritis_model.sav'
 filename_art = 'arthritis_model.sav'
 urllib.request.urlretrieve(url_arth, filename_art)
 try:
