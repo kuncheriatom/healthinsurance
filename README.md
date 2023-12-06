@@ -9,6 +9,11 @@
 
 ![image](https://github.com/kuncheriatom/healthinsurance/assets/142428810/7bc86da1-29a4-4c64-bc72-fc662542817b)
 
+![image](https://github.com/kuncheriatom/healthinsurance/assets/142428810/2765bb50-7c4e-4628-b087-3a44e50aa830)
+
+![image](https://github.com/kuncheriatom/healthinsurance/assets/142428810/77564228-0777-46ae-a904-bc53cdbfca54)
+
+
 
 
 
